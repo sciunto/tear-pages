@@ -16,7 +16,7 @@ How to use?
 
 It's dead simple
 
-    tear-pages.py file.pdf
+    tearpages.py file.pdf
 
 
 License

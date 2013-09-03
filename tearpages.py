@@ -3,6 +3,8 @@
 # Author: Francois Boulogne
 # License: GPLv3
 
+__version__ = '0.1'
+
 import argparse
 import shutil
 import tempfile

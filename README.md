@@ -1,5 +1,5 @@
-tear-coverage
-=============
+tear-pages
+==========
 
 Simple script to remove the first page of a PDF
 

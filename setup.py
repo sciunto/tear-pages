@@ -4,7 +4,7 @@ from distutils.core import setup
 from tearpages import __version__
 
 setup(
-    name         = 'tear-coverage',
+    name         = 'tear-pages',
     version      = __version__,
     url          = 'https://github.com/sciunto/tear-pages',
     author       = "Francois Boulogne",

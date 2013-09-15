@@ -18,6 +18,24 @@ It's dead simple
 
     tearpages.py file.pdf
 
+Install
+=======
+
+AUR
+----
+
+* https://aur.archlinux.org/packages/tear-pages/
+
+Pypi
+----
+
+* https://pypi.python.org/pypi/tear-pages
+
+
+source
+------
+
+* http://source.sciunto.org/tear-pages/
 
 License
 =======

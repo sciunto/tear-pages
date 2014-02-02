@@ -21,6 +21,8 @@ It's dead simple
 Install
 =======
 
+First, install pyPDF2 from http://mstamy2.github.io/PyPDF2/
+
 AUR
 ----
 

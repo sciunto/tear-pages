@@ -3,7 +3,7 @@
 # Author: Francois Boulogne
 # License: GPLv3
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 import argparse
 import shutil
@@ -30,11 +30,12 @@ def fixPdf(pdfFile, destination):
     output.close()
     shutil.copy(tmp.name, destination)
 
-def main(filename):
+def tearpage(filename, startpage=1):
     """
-    Copy filename to a tempfile, write pages 1..N to filename.
+    Copy filename to a tempfile, write pages startpage..N to filename.
 
     :param filename: PDF filepath
+    :param startpage: page number for the new first page
     """
     # Copy the pdf to a tmp file
     tmp = tempfile.NamedTemporaryFile()
@@ -51,7 +52,7 @@ def main(filename):
 
     # Write pages excepted the first one
     output_file = PdfFileWriter()
-    for i in range(1, num_pages):
+    for i in range(startpage, num_pages):
         output_file.addPage(input_file.getPage(i))
 
     tmp.close()
@@ -66,4 +67,4 @@ if __name__ == '__main__':
     parser.add_argument('pdf', metavar='PDF', help='PDF filepath')
     args = parser.parse_args()
 
-    main(args.pdf)
+    tearpage(args.pdf)

@@ -44,7 +44,7 @@ License
 
 GPLv3. Read LICENSE for more details.
 
-Author
-======
+Authors
+=======
 
-F. Boulogne.
+* François Boulogne.

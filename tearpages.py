@@ -3,13 +3,13 @@
 # Author: Francois Boulogne
 # License: GPLv3
 
-__version__ = '0.2'
-
 import argparse
 import shutil
 import tempfile
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.utils import PdfReadError
+
+__version__ = '0.2.1'
 
 
 def fixPdf(pdfFile, destination):
@@ -29,6 +29,7 @@ def fixPdf(pdfFile, destination):
                     break
     output.close()
     shutil.copy(tmp.name, destination)
+
 
 def tearpage(filename, startpage=1):
     """
@@ -62,7 +63,7 @@ def tearpage(filename, startpage=1):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Remove the first page of a PDF',
-                             epilog='')
+                                     epilog='')
     parser.add_argument('--version', action='version', version=__version__)
     parser.add_argument('pdf', metavar='PDF', help='PDF filepath')
     args = parser.parse_args()

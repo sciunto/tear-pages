@@ -8,7 +8,9 @@ setup(
     version      = __version__,
     url          = 'https://github.com/sciunto/tear-pages',
     author       = "Francois Boulogne",
+    author_email = 'devel@sciunto.org',
     license      = 'GPLv3',
     description  = 'Simple script to remove the first page of a PDF',
     scripts      = ['tearpages.py'],
+    install_requires=['PyPDF>=1.25.1'],
 )

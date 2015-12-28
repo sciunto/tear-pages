@@ -9,7 +9,7 @@ import tempfile
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.utils import PdfReadError
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 
 
 def fixPdf(pdfFile, destination):

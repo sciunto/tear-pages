@@ -12,5 +12,5 @@ setup(
     license      = 'GPLv3',
     description  = 'Simple script to remove the first page of a PDF',
     scripts      = ['tearpages.py'],
-    install_requires=['PyPDF>=1.25.1'],
+    install_requires=['PyPDF2>=1.25.1'],
 )

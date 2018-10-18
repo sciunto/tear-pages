@@ -29,12 +29,13 @@ def fixPdf(pdfFile, destination):
         shutil.copy(tmp.name, destination)
 
 
-def tearpage(filename, startpage=0):
+def tearpage(filename, startpage=0, lastpage=0):
     """
     Copy filename to a tempfile, write pages startpage..N to filename.
 
     :param filename: PDF filepath
-    :param startpage: page number for the new first page
+    :param startpage: number of pages to delete from the cover
+    :param lastpage: number of pages to delete from the bacl
     """
     # Copy the pdf to a tmp file
     with tempfile.NamedTemporaryFile() as tmp:
@@ -49,12 +50,14 @@ def tearpage(filename, startpage=0):
         # Seek for the number of pages
         num_pages = input_file.getNumPages()
 
+        if startpage >= num_pages - lastpage:
+            raise ValueError('Incorrect number of pages')
+
         # Write pages excepted the first one
         output_file = PdfFileWriter()
-        for i in range(startpage, num_pages):
+        for i in range(startpage, num_pages-lastpage):
             output_file.addPage(input_file.getPage(i))
 
-        
     with open(filename, "wb") as outputStream:
         output_file.write(outputStream)
 
@@ -66,4 +69,4 @@ if __name__ == '__main__':
     parser.add_argument('pdf', metavar='PDF', help='PDF filepath')
     args = parser.parse_args()
 
-    tearpage(args.pdf, startpage=1)
+    tearpage(args.pdf, startpage=1, lastpage=0)

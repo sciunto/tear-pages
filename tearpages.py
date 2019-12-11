@@ -4,12 +4,13 @@
 # License: GPLv3
 
 import argparse
+import logging
 import shutil
 import tempfile
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.utils import PdfReadError
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 
 def fixPdf(pdfFile, destination):
@@ -66,7 +67,38 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Remove the first page of a PDF',
                                      epilog='')
     parser.add_argument('--version', action='version', version=__version__)
+    parser.add_argument('-d', '--debug', action='store_true',
+                        default=False, help='Run in debug mode')
     parser.add_argument('pdf', metavar='PDF', help='PDF filepath')
+    parser.add_argument('--first', action='store_true',
+                        default=False, help='Tear the first page')
+    parser.add_argument('--last', action='store_true',
+                        default=False, help='Tear the last page')
+
+
     args = parser.parse_args()
 
-    tearpage(args.pdf, startpage=1, lastpage=0)
+    # Logger level
+    if args.debug:
+        llevel = logging.DEBUG
+    else:
+        llevel = logging.INFO
+    logger = logging.getLogger()
+    logger.setLevel(llevel)
+
+    logger.debug(args)
+
+    # Handle first/last page
+    if args.first:
+        startpage =  1
+    else:
+        startpage = 0
+
+    if args.last:
+        lastpage = 1
+    else:
+        lastpage = 0
+
+    tearpage(args.pdf,
+            startpage=startpage,
+            lastpage=lastpage)

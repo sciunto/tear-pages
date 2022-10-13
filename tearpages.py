@@ -8,9 +8,9 @@ import logging
 import shutil
 import tempfile
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from PyPDF2.utils import PdfReadError
+from PyPDF2.errors import PdfReadError
 
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 
 def fixPdf(pdfFile, destination):

@@ -7,27 +7,26 @@ import argparse
 import logging
 import shutil
 import tempfile
-from PyPDF2 import PdfFileWriter, PdfFileReader
-from PyPDF2.errors import PdfReadError
+from PyPDF2 import PdfWriter, PdfReader
 
-__version__ = '0.4.1'
+__version__ = '0.5.0'
 
 
-def fixPdf(pdfFile, destination):
-    """
-    Fix malformed pdf files when data are present after '%%EOF'
-
-    :param pdfFile: PDF filepath
-    :param destination: destination
-    """
-    with tempfile.NamedTemporaryFile() as tmp:
-        with open(tmp.name, 'wb') as output:
-            with open(pdfFile, "rb") as fh:
-                for line in fh:
-                    output.write(line)
-                    if b'%%EOF' in line:
-                        break
-        shutil.copy(tmp.name, destination)
+#def fixPdf(pdfFile, destination):
+#    """
+#    Fix malformed pdf files when data are present after '%%EOF'
+#
+#    :param pdfFile: PDF filepath
+#    :param destination: destination
+#    """
+#    with tempfile.NamedTemporaryFile() as tmp:
+#        with open(tmp.name, 'wb') as output:
+#            with open(pdfFile, "rb") as fh:
+#                for line in fh:
+#                    output.write(line)
+#                    if b'%%EOF' in line:
+#                        break
+#        shutil.copy(tmp.name, destination)
 
 
 def tearpage(filename, startpage=0, lastpage=0):
@@ -43,21 +42,18 @@ def tearpage(filename, startpage=0, lastpage=0):
         shutil.copy(filename, tmp.name)
 
         # Read the copied pdf
-        try:
-            input_file = PdfFileReader(open(tmp.name, 'rb'))
-        except PdfReadError:
-            fixPdf(filename, tmp.name)
-            input_file = PdfFileReader(open(tmp.name, 'rb'))
+        input_file = PdfReader(tmp.name)
         # Seek for the number of pages
-        num_pages = input_file.getNumPages()
+        #num_pages = input_file.getNumPages()
+        num_pages = len(input_file.pages)
 
         if startpage >= num_pages - lastpage:
             raise ValueError('Incorrect number of pages')
 
         # Write pages excepted the first one
-        output_file = PdfFileWriter()
+        output_file = PdfWriter()
         for i in range(startpage, num_pages-lastpage):
-            output_file.addPage(input_file.getPage(i))
+            output_file.add_page(input_file.pages[i])
 
     with open(filename, "wb") as outputStream:
         output_file.write(outputStream)
